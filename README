@@ -1,0 +1,114 @@
+Author: Ricardo Garcia Gonzalez
+License: Public domain code
+
+THE WHAT
+========
+
+This program solves the numeric exercises from the Spanish TV show "Cifras
+y Letras". In the program, the contestants are given 6 random numbers from
+the following set:
+
+	1 2 3 4 5 6 7 8 9 10 25 50 75 100
+
+Then they are asked, by using only natural numbers and exact operations,
+to combine them arithmetically in order to find another random number from
+100 to 999. Only sums, substractions, multplications and divisions are
+allowed. For example, they could be given numbers (5, 5, 6, 25, 9, 7) and
+combine them to get number 881. One of the possible answers is ((5 * 25 *
+7) + 6). As you can see, using all the basic numbers is not required. If
+you prefer to put it step by step:
+
+	5 * 7 = 35
+	25 * 35 = 875
+	875 + 6 = 881
+
+This problem has been generalized in the program. You can use at least 2
+basic numbers but as many as you want, and the range is not limited, at least
+in theory. In practice, the amount of basic numbers and range is limited,
+but the limits "should be high enough for anybody".
+
+THE HOW
+=======
+
+The program is divided in 3 different parts: the Operation class, the Node
+class and the MemoryManager class. I will explain them in that order.
+
+The Operation class is quite easy to understand. It's an abstract class
+that represents a binary operation. It stores a left and a right operand,
+and has methods to check if the operation is valid and to get the result. The
+operation may not be valid. For example, you cannot divide by zero and you
+cannot divide if the result is not an exact natural number (i.e. you cannot
+divide 3 by 2). This abstract class has 4 subclasses that represent the
+basic operations allowed in the game.
+
+This class is used by the Node class. The problem we are trying to solve
+can be represented by a graph. If we have a list of numbers that we can
+operate together, we can form pairs of those numbers and try the different
+operations in that pair. For example, lets suppose we have the numbers (1,
+2, 3). 3 pairs can be formed with these numbers:
+
+	(1, 2) leaving out the 3
+	(1, 3) leaving out the 2
+	(2, 3) leaving out the 1
+
+The first pair can be used in the following valid operations:
+
+	2 + 1 (result: 3)
+	2 * 1 (result: 2)
+	2 - 1 (result: 1)
+	2 / 1 (result: 2)
+
+As we left out the 3 in the that first pair, by combining the other two we
+have a result that can be operated with the remaining 3. That is, after doing
+each one of those operations, we would have the following "partial results":
+
+	2 + 1 = 3, partial result (3, 3)
+	2 * 1 = 2, partial result (3, 2)
+	2 - 1 = 1, partial result (3, 1)
+	2 / 1 = 2, partial result (3, 2)
+
+In other words, we start with a so-called root node that has all the initial
+numbers. This node is connected to many partial result nodes, by performing a
+high number of operations with pairs of numbers. Each one of these, in turn,
+is connected to a whole set of more partial result nodes, with as much deep
+as needed to reach the target number, or until the partial result only has
+one number remaining.
+
+This graph is not a tree, as you can see in the example above. Both (2 * 1 =
+2) and (2 / 1 = 2) allowed us to go from the node (1, 2, 3) to the node (2,
+3). A node has three very important things: first, it has a list of operations
+needed to reach it from the root node; second, each node introduces a new
+number which is the result of operating a couple of numbers; third, it has a
+list of remaining usable numbers to be combined to reach the result, and this
+list includes the newly introduced number. When generating a new node, the
+child node has a new list of operations, which is the same as in the parent
+node plus one more operation, a new introduced number, which is the result
+of the last operation, and a list of possible numbers to be combined, which
+are the numbers not used in the operation, plus the result of the operation.
+
+This allows us to recursively apply backtracking and explore the graph. If,
+on top of that, we store the partial results we obtain, this can be done
+efficiently. This means we wouldn't explore the node (2, 3) the second
+time it appears. All this work is done in the Node constructor. The Node
+constructor builds the full problem graph, because when building a node,
+it builds all of its children.
+
+One minor implementation detail is that the initial number list is sorted in
+descending order, and when a new number is introduced, it's also inserted
+preserving order. Order preservation allows us to form valid pairs quickly
+and easily with the algorithm present in the node constructor, where each
+number is paired with all of the numbers to its right. This way, we make sure
+substractions always work, and divisions may work if the result is exact. We
+don't need to try the other way around with these two non-commutative
+operations, because we know we can't subtract B from A or divide A by B if
+B is greater than A.
+
+Finally, the MemoryManager class was designed to help track new nodes and
+operations we need to create. It creates operations and nodes on the fly,
+and stores all pointers it returns. This way, we can clean memory at any
+point using the free() method. Currently, this is called at the end of the
+program. This class is also designed using the Singleton design pattern. This
+means the class has a static pointer to an object of the same class, and the
+constructor is private. Te only way to get a MemoryManager instance is to call
+the instance() static method, which always returns the same instance. This
+guarantees there's only one MemoryManager object in the same program.

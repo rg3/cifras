@@ -1,0 +1,72 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.6	//
+Div	operation.h	/^	Div(long a, long b) : Operation(a, b) {}$/;"	f	class:Div
+Div	operation.h	/^class Div: public Operation {$/;"	c
+MemoryManager	memory_manager.cc	/^MemoryManager::MemoryManager()$/;"	f	class:MemoryManager
+MemoryManager	memory_manager.h	/^class MemoryManager {$/;"	c
+Mul	operation.h	/^	Mul(long a, long b) : Operation(a, b) {}$/;"	f	class:Mul
+Mul	operation.h	/^class Mul: public Operation {$/;"	c
+Node	node.cc	/^Node::Node(const list<const Operation *> &prev_steps, long new_num, long target,$/;"	f	class:Node
+Node	node.h	/^class Node {$/;"	c
+OpCode	operation.h	/^enum OpCode { Op_Sum, Op_Mul, Op_Sub, Op_Div };$/;"	g
+Op_Div	operation.h	/^enum OpCode { Op_Sum, Op_Mul, Op_Sub, Op_Div };$/;"	e	enum:OpCode
+Op_Mul	operation.h	/^enum OpCode { Op_Sum, Op_Mul, Op_Sub, Op_Div };$/;"	e	enum:OpCode
+Op_Sub	operation.h	/^enum OpCode { Op_Sum, Op_Mul, Op_Sub, Op_Div };$/;"	e	enum:OpCode
+Op_Sum	operation.h	/^enum OpCode { Op_Sum, Op_Mul, Op_Sub, Op_Div };$/;"	e	enum:OpCode
+Operation	operation.h	/^	Operation(const long &a, const long &b) : lf(a), rg(b) {}$/;"	f	class:Operation
+Operation	operation.h	/^class Operation {$/;"	c
+Sub	operation.h	/^	Sub(long a, long b) : Operation(a, b) {}$/;"	f	class:Sub
+Sub	operation.h	/^class Sub: public Operation {$/;"	c
+Sum	operation.h	/^	Sum(long a, long b) : Operation(a, b) {}$/;"	f	class:Sum
+Sum	operation.h	/^class Sum: public Operation {$/;"	c
+__MEMORY_MANAGER_HEADER__	memory_manager.h	6;"	d
+__NODE_HEADER__	node.h	6;"	d
+__OPERATION_HEADER__	operation.h	6;"	d
+append_from_except	node.cc	/^	void append_from_except(const list<T> &ls,$/;"	f	namespace:__anon2
+argument_type	memory_manager.cc	/^		typedef const T *argument_type;$/;"	t	struct:__anon1::delete_ptr	file:
+best	node.h	/^	const Node &best() const { return *best_child; }$/;"	f	class:Node
+best_child	node.h	/^	Node *best_child;$/;"	m	class:Node
+best_node	node.cc	/^Node *best_node(Node *first, Node *second, const long &target)$/;"	f
+build_node	memory_manager.cc	/^Node *MemoryManager::build_node(const list<const Operation *> &prev_steps,$/;"	f	class:MemoryManager
+build_operation	memory_manager.cc	/^Operation *MemoryManager::build_operation(OpCode code, long left, long right)$/;"	f	class:MemoryManager
+delete_ptr	memory_manager.cc	/^		delete_ptr() {}$/;"	f	struct:__anon1::delete_ptr
+delete_ptr	memory_manager.cc	/^	struct delete_ptr {$/;"	s	namespace:__anon1	file:
+free	memory_manager.cc	/^void MemoryManager::free()$/;"	f	class:MemoryManager
+insert_ordered	node.cc	/^	void insert_ordered(list<T> &thelist, const T &elem)$/;"	f	namespace:__anon2
+instance	memory_manager.cc	/^MemoryManager *MemoryManager::instance()$/;"	f	class:MemoryManager
+left	operation.h	/^	virtual const long &left() const { return lf; }$/;"	f	class:Operation
+lf	operation.h	/^	long lf;$/;"	m	class:Operation
+main	cifras.cc	/^int main(int argc, char *argv[])$/;"	f
+nodes	memory_manager.h	/^	std::list<const Node *> nodes;$/;"	m	class:MemoryManager
+opchar	operation.h	/^	virtual char opchar() const { return '*'; }$/;"	f	class:Mul
+opchar	operation.h	/^	virtual char opchar() const { return '+'; }$/;"	f	class:Sum
+opchar	operation.h	/^	virtual char opchar() const { return '-'; }$/;"	f	class:Sub
+opchar	operation.h	/^	virtual char opchar() const { return '\/'; }$/;"	f	class:Div
+operations	memory_manager.h	/^	std::list<const Operation *> operations;$/;"	m	class:MemoryManager
+operator ()	memory_manager.cc	/^		result_type operator()(argument_type ptr) { delete ptr; }$/;"	f	struct:__anon1::delete_ptr
+operator <<	node.cc	/^ostream &operator<<(ostream &out, const Node &node)$/;"	f
+operator <<	operation.cc	/^ostream &operator<<(ostream &out, const Operation &op)$/;"	f
+result	operation.h	/^	virtual long result() const { return lf * rg; }$/;"	f	class:Mul
+result	operation.h	/^	virtual long result() const { return lf + rg; }$/;"	f	class:Sum
+result	operation.h	/^	virtual long result() const { return lf - rg; }$/;"	f	class:Sub
+result	operation.h	/^	virtual long result() const { return lf \/ rg; }$/;"	f	class:Div
+result_type	memory_manager.cc	/^		typedef void result_type;$/;"	t	struct:__anon1::delete_ptr	file:
+rg	operation.h	/^	long rg;$/;"	m	class:Operation
+right	operation.h	/^	virtual const long &right() const { return rg; }$/;"	f	class:Operation
+steps	node.h	/^	const std::list<const Operation *> &steps() const { return thesteps; }$/;"	f	class:Node
+successors	node.h	/^	std::list<Node *> successors;$/;"	m	class:Node
+theinstance	memory_manager.cc	/^MemoryManager *MemoryManager::theinstance = 0;$/;"	m	class:MemoryManager	file:
+theinstance	memory_manager.h	/^	static MemoryManager *theinstance;$/;"	m	class:MemoryManager
+thesteps	node.h	/^	std::list<const Operation *> thesteps;$/;"	m	class:Node
+thevalue	node.h	/^	long thevalue;$/;"	m	class:Node
+valid	operation.h	/^	virtual bool valid() const { return lf > rg; }$/;"	f	class:Sub
+valid	operation.h	/^	virtual bool valid() const { return rg != 0 && lf % rg == 0; }$/;"	f	class:Div
+valid	operation.h	/^	virtual bool valid() const { return true; }$/;"	f	class:Operation
+valid	operation.h	/^	virtual bool valid() const {$/;"	f	class:Mul
+valid	operation.h	/^	virtual bool valid() const {$/;"	f	class:Sum
+value	node.h	/^	long value() const { return thevalue; }$/;"	f	class:Node
+~Operation	operation.h	/^	virtual ~Operation() {}$/;"	f	class:Operation
