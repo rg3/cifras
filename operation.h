@@ -4,6 +4,7 @@
  */
 #ifndef __OPERATION_HEADER__
 #define __OPERATION_HEADER__
+#include <iostream>
 
 // Operation class.
 class Operation {
